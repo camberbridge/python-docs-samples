@@ -9,12 +9,14 @@ usage
 """
 
 
-import os, sys, cv2
+import os, sys, cv2, shutil
 
-def video_to_frames(video_file=sys.argv[1], image_dir='./image_dir/', num_cut=10):
-    if not os.path.exists(image_dir):
-        # Make the directory if it doesn't exist.
-        os.makedirs(image_dir)
+def video_to_frames(video_file, image_dir='./image_dir/', num_cut=10):
+    if os.path.exists(image_dir):
+        shutil.rmtree(image_dir)
+
+    # Make the directory if it doesn't exist.
+    os.makedirs(image_dir)
 
     cap = cv2.VideoCapture(video_file)
     img_counter = 0  # A number of save images
@@ -34,4 +36,4 @@ def video_to_frames(video_file=sys.argv[1], image_dir='./image_dir/', num_cut=10
 
 
 if __name__ == '__main__':
-    video_to_frames()
+    video_to_frames(video_file=sys.argv[1])
